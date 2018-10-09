@@ -4,10 +4,10 @@ import pretty_midi
 import define
 
 
-def interval_exam(noteCnt=2):
+def interval_exam(note_cnt=2):
     notes = list()
     std_number = pretty_midi.note_name_to_number('A4')
-    for i in range(noteCnt):
+    for i in range(note_cnt):
         note = pretty_midi.note_number_to_name(std_number + randint(-12, 12))
         while note in notes:
             note = pretty_midi.note_number_to_name(std_number + randint(-12, 12))
@@ -25,6 +25,19 @@ def interval_exam(noteCnt=2):
         return False
 
 
+def interval_exams(exam_cnt=20, note_cnt=2):
+    succ_cnt = 0
+    for i in range(exam_cnt):
+        print('%d / %d' % (i + 1, exam_cnt))
+        if interval_exam(note_cnt):
+            succ_cnt += 1
+            
+    print()
+    print("Acc: %d%%" % (succ_cnt / exam_cnt * 100))
+    print()
+    
+    return succ_cnt / exam_cnt
+
+
 if __name__ == '__main__':
-    while True:
-        interval_exam()
+    interval_exams()
