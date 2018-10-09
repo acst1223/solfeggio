@@ -1,6 +1,7 @@
 from note_relation import *
 from play_midi import play_midi
 import define
+import random
 
 
 def play_scale(note, scale_f):
@@ -36,9 +37,11 @@ def play_scale(note, scale_f):
         play_midi('midi.mid')
 
 
-def play_scale_continuously(note, scale_f):
+def play_scale_continuously(note, scale_f, shuffle=False):
 
     scale = scale_f(note)
+    if shuffle:
+        scale[1: ] = random.shuffle(scale[1: ])
     print("scale of " + define.note_name_display[note] + ": " + ", ".join([define.note_name_display[x] for x in scale]))
 
     cnt = 0
@@ -85,13 +88,13 @@ def play_interval(note):
     play_scale(octave, down_semitone_scale)
 
 
-def play_interval_continuously(note):
+def play_interval_continuously(note, shuffle=False):
 
     # note should be white, and denoted in the form of str
 
     octave = next_octave_note(note)
 
-    play_scale_continuously(note, up_c_scale)
-    play_scale_continuously(octave, down_c_scale)
-    play_scale_continuously(note, up_semitone_scale)
-    play_scale_continuously(octave, down_semitone_scale)
+    play_scale_continuously(note, up_c_scale, shuffle=shuffle)
+    play_scale_continuously(octave, down_c_scale, shuffle=shuffle)
+    play_scale_continuously(note, up_semitone_scale, shuffle=shuffle)
+    play_scale_continuously(octave, down_semitone_scale, shuffle=shuffle)
