@@ -41,7 +41,9 @@ def play_scale_continuously(note, scale_f, shuffle=False):
 
     scale = scale_f(note)
     if shuffle:
-        scale[1: ] = random.shuffle(scale[1: ])
+        temp_scale = scale[1: ]
+        random.shuffle(temp_scale)
+        scale = [scale[0]] + temp_scale
     print("scale of " + define.note_name_display[note] + ": " + ", ".join([define.note_name_display[x] for x in scale]))
 
     cnt = 0
